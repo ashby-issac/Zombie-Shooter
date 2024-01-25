@@ -19,7 +19,6 @@ public class EnemyHealth : MonoBehaviour
     public void DamageEnemy(int hitHealthPoints)
     {
         health -= hitHealthPoints;
-        Debug.Log(health);
         if (health < 1 && isAlive)
         {
             animator.SetTrigger("die");

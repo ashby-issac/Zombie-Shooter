@@ -14,37 +14,19 @@ public class WeaponZoom : MonoBehaviour
     [SerializeField] float zoomedInSensitivity = 0.5f;
     [SerializeField] float zoomedOutSensitivity = 1.5f;
 
-    DeathHandler deathHandler;
     bool isZoomed = false;
 
-    void OnDisable()
-    {
-        ZoomOutWeapon();   
-    }
+    void Update() => ProcessWeaponZoom();
 
-    void Start()
-    {
-        deathHandler = FindObjectOfType<DeathHandler>();    
-    }
-
-    void Update()
-    {
-        ProcessWeaponZoom();
-    }
+    void OnDisable() => ZoomOutWeapon();
 
     private void ProcessWeaponZoom()
     {
-        if (Input.GetMouseButtonDown(1) && !deathHandler.IsGameOver())
-        {
+        if (Input.GetMouseButtonDown(1) && !DeathHandler.IsGameOver)
             if (!isZoomed)
-            {
                 ZoomInWeapon();
-            }
             else
-            {
                 ZoomOutWeapon();
-            }
-        }
     }
 
     void ZoomInWeapon()

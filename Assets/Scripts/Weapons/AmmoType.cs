@@ -5,3 +5,10 @@ public enum AmmoType
     Shotgun_Bullets,
     AK47_Bullets
 }
+
+public enum WeaponType
+{
+    Pistol,
+    Shotgun,
+    AK47
+}

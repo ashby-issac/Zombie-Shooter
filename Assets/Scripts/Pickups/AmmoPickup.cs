@@ -4,28 +4,29 @@ using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
-    [SerializeField] AmmoType ammoType;
     [SerializeField] AudioClip ammoPickupClip;
-    
-
-    [SerializeField] int ammoAmount;
+    [SerializeField] AmmoType ammoType;
+    [SerializeField] WeaponSpecs ammo;
+    [SerializeField] int pickupAmt;
 
     AudioSource audioSource;
-    Ammo ammo;
 
     void Start()
     {
         audioSource = FindObjectOfType<AudioSource>();
-        ammo = FindObjectOfType<Ammo>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         { 
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             audioSource.PlayOneShot(ammoPickupClip);
-            ammo.IncreaseAmmos(ammoType, ammoAmount);
+            WeaponsManager.Instance.Weapons.ForEach(weapon =>
+            {
+                if (weapon.AmmoType == ammoType)
+                    weapon.AddCollectedAmmo(pickupAmt);
+            });
         }
     }
 }

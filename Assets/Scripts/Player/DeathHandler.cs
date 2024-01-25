@@ -6,22 +6,19 @@ public class DeathHandler : MonoBehaviour
 {
     [SerializeField] Canvas gameOverCanvas;
 
-    bool isGameOver = false;
+    static bool isGameOver = false;
+    
+    public static bool IsGameOver => isGameOver;
 
     void Start()
     {
+        PlayerHealth.OnPlayerDeath += HandleDeath;
         gameOverCanvas.enabled = false;
-    }
-
-    public bool IsGameOver()
-    {
-        return isGameOver;
     }
 
     public void HandleDeath()
     {
         gameOverCanvas.enabled = true;
-        FindObjectOfType<Weapon>().enabled = false;
         isGameOver = true;
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
